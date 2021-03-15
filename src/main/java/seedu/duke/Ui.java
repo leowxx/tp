@@ -7,8 +7,8 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner userInputScanner;
-    public static final String welcomeMessage = "Welcome to the Patient Manager.\n";
-    public static final String inputPrompt = "Please input a command:";
+    public static final String WELCOME_MESSAGE = "Welcome to the Patient Manager.\n";
+    public static final String INPUT_PROMPT = "Please input a command:";
 
     /**
      * Initialize a UI handler.
@@ -44,8 +44,8 @@ public class Ui {
      * Prints a welcome message.
      */
     public void printWelcome() {
-        printMessage(welcomeMessage);
-        printMessage(inputPrompt);
+        printMessage(WELCOME_MESSAGE);
+        printMessage(INPUT_PROMPT);
     }
 
     /**
