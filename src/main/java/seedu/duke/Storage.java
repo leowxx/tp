@@ -66,7 +66,7 @@ public class Storage {
     public ArrayList<Record> convertStringToRecord(String recordString) {
         String[] splitString = recordString.split(Constants.PATIENT_RECORDS_SEPARATOR);
         ArrayList<Record> records = new ArrayList<Record>();
-        for (String str : splitString){
+        for (String str : splitString) {
             records.add(new Record(str));
         }
         return records;
