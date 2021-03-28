@@ -22,10 +22,19 @@ import java.util.TreeMap;
 public class Storage {
     protected String filePath;
 
+    /**
+     * This is the constructor of the Storage class.
+     * @param filePath Path of the file that would be used for data storage
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the sorted map into a file as specified by filePath.
+     * @param patientData The sorted map of patients to be saved into the file
+     * @throws IOException When file is not found etc
+     */
     public void save(SortedMap<String, Patient> patientData) throws IOException {
         try {
             File inFile = new File(filePath);
@@ -42,7 +51,7 @@ public class Storage {
                 Patient patient = (Patient)m.getValue();
                 String records = convertRecordToString(patient);
 
-                message.append(id + Constants.KEY_VALUE_SEPARATOR + records + "\n");
+                message.append(id + Constants.KEY_VALUE_SEPARATOR + records + System.lineSeparator());
             }
             System.out.println(message);
             fileWriter.write(message.toString());
@@ -53,6 +62,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts patient records into string.
+     * @param patient Patient record to be converted
+     * @return Resulting string that represents the record
+     */
     public String convertRecordToString(Patient patient) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Record record : patient.getRecords()) {
@@ -63,15 +77,25 @@ public class Storage {
         return (stringBuilder.toString());
     }
 
+    /**
+     * Converts string to patient records.
+     * @param recordString String to be converted
+     * @return Resulting records that were represented by the string
+     */
     public ArrayList<Record> convertStringToRecord(String recordString) {
         String[] splitString = recordString.split(Constants.PATIENT_RECORDS_SEPARATOR);
         ArrayList<Record> records = new ArrayList<Record>();
-        for (String str : splitString){
+        for (String str : splitString) {
             records.add(new Record(str));
         }
         return records;
     }
 
+    /**
+     * Loads a sorted map from the file located at the specified filePath.
+     * @return SortedMap of patients
+     * @throws IOException When file is not found etc
+     */
     //TODO: Fix load function
     public SortedMap<String, Patient> load() throws IOException {
         SortedMap<String, Patient> data = new TreeMap<>();
