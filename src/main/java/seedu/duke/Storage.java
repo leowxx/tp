@@ -22,10 +22,19 @@ import java.util.TreeMap;
 public class Storage {
     protected String filePath;
 
+    /**
+     *
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     *
+     * @param patientData
+     * @throws IOException
+     */
     public void save(SortedMap<String, Patient> patientData) throws IOException {
         try {
             File inFile = new File(filePath);
@@ -42,7 +51,7 @@ public class Storage {
                 Patient patient = (Patient)m.getValue();
                 String records = convertRecordToString(patient);
 
-                message.append(id + Constants.KEY_VALUE_SEPARATOR + records + "\n");
+                message.append(id + Constants.IC_SEPARATOR + records + System.lineSeparator());
             }
             System.out.println(message);
             fileWriter.write(message.toString());
@@ -53,18 +62,28 @@ public class Storage {
         }
     }
 
+    /**
+     *
+     * @param patient
+     * @return
+     */
     public String convertRecordToString(Patient patient) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Record record : patient.getRecords()) {
             stringBuilder.append(record.getConsultationDetail());
-            stringBuilder.append(Constants.PATIENT_RECORDS_SEPARATOR);
+            stringBuilder.append(Constants.DATE_SEPARATOR);
         }
 
         return (stringBuilder.toString());
     }
 
+    /**
+     *
+     * @param recordString
+     * @return
+     */
     public ArrayList<Record> convertStringToRecord(String recordString) {
-        String[] splitString = recordString.split(Constants.PATIENT_RECORDS_SEPARATOR);
+        String[] splitString = recordString.split(Constants.DATE_SEPARATOR);
         ArrayList<Record> records = new ArrayList<Record>();
         for (String str : splitString) {
             records.add(new Record(str));
@@ -72,6 +91,11 @@ public class Storage {
         return records;
     }
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
     //TODO: Fix load function
     public SortedMap<String, Patient> load() throws IOException {
         SortedMap<String, Patient> data = new TreeMap<>();
@@ -79,7 +103,7 @@ public class Storage {
             File inFile = new File(filePath);
             Scanner scanner = new Scanner(inFile);
             while (scanner.hasNextLine()) {
-                String[] retrievedPatientsData = scanner.nextLine().split(Constants.KEY_VALUE_SEPARATOR);
+                String[] retrievedPatientsData = scanner.nextLine().split(Constants.IC_SEPARATOR);
                 String id = retrievedPatientsData[0];
                 ArrayList<Record> records = convertStringToRecord(retrievedPatientsData[1]);
                 Patient patient = new Patient(id, records);

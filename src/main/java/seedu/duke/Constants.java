@@ -52,6 +52,9 @@ public class Constants {
     public static final int INDEX_OF_LAST_CHARACTER = 8;
 
     //Storage delimiter constants
-    public static final String KEY_VALUE_SEPARATOR = "||";
-    public static final String PATIENT_RECORDS_SEPARATOR = "|";
+    public static final String IC_SEPARATOR = "||";
+    public static final String DATE_SEPARATOR = "|~|";
+    public static final String SYMPTOMS_SEPARATOR = "|s|";
+    public static final String DIAGNOSIS_SEPARATOR = "|d|";
+    public static final String PRESCRIPTION_SEPARATOR = "|p|";
 }
