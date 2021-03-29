@@ -30,4 +30,21 @@ public class Record {
     public String toString() {
         return consultationDetail;
     }
+
+    public String printFileConsultationDetail() {
+        String consultationDetail = "";
+        for (String symptom : symptoms) {
+            consultationDetail += symptom + "\t";
+        }
+        consultationDetail += Constants.SYMPTOM_DELIMITER;
+        for (String diagnosis : diagnoses) {
+            consultationDetail += diagnosis + "\t";
+        }
+        consultationDetail += Constants.DIAGNOSIS_DELIMITER;
+        for (String prescription : prescriptions) {
+            consultationDetail += prescription + "\t";
+        }
+        consultationDetail += Constants.PRESCRIPTION_DELIMITER;
+        return consultationDetail;
+    }
 }
